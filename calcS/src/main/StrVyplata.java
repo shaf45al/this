@@ -15,17 +15,23 @@ import javax.swing.JPanel;
  * Класс, с помощью которого пользователь может узнать информацию относительно страховой выплаты.
  * @see StrVyplata#poluchD
  */
-public class StrVyplata {
+public class StrVyplata{
 	
 	/** 
 	 * Поле, обозначающее полученный от предпринимательской деятельности доход, руб. 
 	 */ 
 	 String poluchD="0";
 	
+	 /** 
+	  * Конструктор класса.
+	  */
+	protected StrVyplata(){
+	}
+	
 	/** 
 	 * Метод открывает окно "Страховая выплата".
 	 */
-	protected StrVyplata(){
+	protected void zapusk(){
 		JFrame s=new JFrame();
 		
 		/*Следующий фрагмент кода проверяет, получал ли до этого пользователь страховую выплату по данному случаю страхования, 
@@ -56,11 +62,11 @@ public class StrVyplata {
 				panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 				JLabel label=new JLabel("Сумма страховой выплаты, руб:");
-				JLabel strVyplataL=new JLabel(String.valueOf(UznatStrVyp()));
+				JLabel strVyplataL=new JLabel(String.valueOf(UznatStrVyp(Integer.parseInt(poluchD))));
 				JLabel pravila=new JLabel("Для получения страховой выплаты");
 				JLabel pravila1=new JLabel("обратитесь в приемный отдел по адресу: ул.Гафури, д.76");
 
-				//установка выравнивания компонентов (по середине)
+				//выравнивание компонентов (по середине)
 				label.setAlignmentX(Component.CENTER_ALIGNMENT); 
 				strVyplataL.setAlignmentX(Component.CENTER_ALIGNMENT); 
 				pravila.setAlignmentX(Component.CENTER_ALIGNMENT); 
@@ -82,8 +88,8 @@ public class StrVyplata {
 		}
 	}
 	
-	protected int UznatStrVyp(){
-		OsnF.obj2.setdPol(Integer.parseInt(poluchD));
+	protected int UznatStrVyp(int poluchD){
+		OsnF.obj2.setdPol(poluchD);
 		return OsnF.obj2.RaschitatSV();
 	}
 }

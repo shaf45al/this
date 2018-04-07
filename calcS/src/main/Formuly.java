@@ -52,7 +52,7 @@ public class Formuly {
 	 * 
 	 * @return Размер страховой премии, руб. 
 	 */ 
-	public int RaschitatSP(){
+	protected int RaschitatSP(){
 		return this.setStrPrem((int)(this.dPr*this.predKoef));
 	}
 	
@@ -88,7 +88,7 @@ public class Formuly {
 	 * 
 	 * @return Размер страховой выплаты, руб.
 	 */
-	public int RaschitatSV(){
+	protected int RaschitatSV(){
 		return this.StrVyp= (int)(RaschitatY()*this.a/100);
 	}
 	

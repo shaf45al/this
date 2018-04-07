@@ -22,20 +22,25 @@ import javax.swing.JTextField;
  * Класс, с помощью которого пользователь может установить страховой тариф (страховые коэффициенты).
  * @see Strakhovshik#predprKoef
  */ 
-public class Strakhovshik extends JFrame{
-	 JTextField predprKoefTF=new JTextField("0");
+public class Strakhovshik{
+
+	 /** 
+	  * Конструктор класса.
+	  */ 
+	protected Strakhovshik(){
+	}
 
 	/** 
-	 * Метод открывает окно "Страховщик".
+	 * Открывает окно "Страховщик".
 	 */
-	protected Strakhovshik(){
-
+	protected void zapusk(){
+		JFrame s=new JFrame();		
 		//выполняем настройку формы "Страховщик"
-		setTitle("Страховщик");	
-		setSize(600,400);           
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   //указываем, что будет при нажатии крестика
-		setLocationRelativeTo(null);                      //размещаем форму по середине экрана
-		setLayout(new FlowLayout());
+		s.setTitle("Страховщик");	
+		s.setSize(600,400);           
+		s.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   //указываем, что будет при нажатии крестика
+		s.setLocationRelativeTo(null);                      //размещаем форму по середине экрана
+		s.setLayout(new FlowLayout());
 		
 		//создаем основную панель, на которой будут расположены панель для вида страхования, метка и кнопка "Сохранить"
 		JPanel panel=new JPanel();
@@ -46,7 +51,8 @@ public class Strakhovshik extends JFrame{
 		JLabel label=new JLabel("Введите страховые тарифы!");
 		label.setForeground(Color.RED);          			 //устанавливаем цвет текста метки
 		JButton VnestiKoef=new JButton("Сохранить");   
-		
+		 JTextField predprKoefTF=new JTextField("0");
+		 
 		//устанавливаем выравнивание (по середине) компонентов (панель вида страхования, метка и кнопка "Сохранить")
 		panelStrPredpRisk.setAlignmentX(Component.CENTER_ALIGNMENT); 
 		label.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -57,7 +63,7 @@ public class Strakhovshik extends JFrame{
 		panel.add(panelStrPredpRisk);
 		panel.add(VnestiKoef);	
 		
-		add(panel);  //добавляем основную панель на форму
+		s.add(panel);  //добавляем основную панель на форму
 	
 		//устанавливаем вид менеджера для размещения компонентов 
 		panelStrPredpRisk.setLayout(new GridBagLayout());
@@ -65,7 +71,7 @@ public class Strakhovshik extends JFrame{
 		//////////////////////////////////////////////////////////////////////
 		//создаем компоненты для панели panelStrPredpRisk
 		JLabel predprKoefL=new JLabel("Коэффициент для расчета страховых взносов: ");
-		predprKoefTF.setText(String.valueOf(OsnF.obj2.getPredKoef()));                  									  //в поле устанавливаем текст в качестве примера
+		predprKoefTF.setText(Double.toString(OsnF.obj2.getPredKoef()));                  									  //в поле устанавливаем текст в качестве примера
 		System.out.println("первый раз установил "+predprKoefTF.getText());
 		
 		//добавляем созданные компоненты на панель panelStrPredpRisk
@@ -78,9 +84,15 @@ public class Strakhovshik extends JFrame{
 		 */
 		VnestiKoef.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OsnF.obj2.setPredKoef(Double.parseDouble(predprKoefTF.getText()));
+				sohranitKoef(Double.parseDouble(predprKoefTF.getText()));
 				System.out.println("коеффициент сохранен "+OsnF.obj2.getPredKoef());
 			}
 		});
+
+		s.setVisible(true);
+	}
+	
+	protected void sohranitKoef(double koef) {
+		OsnF.obj2.setPredKoef(koef);
 	}
 }

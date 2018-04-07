@@ -24,7 +24,7 @@ import javax.swing.JPanel;
  * @see LichnyKab#VnestiStrVznos()
  * @see Formuly#StrVyp
  */ 
-public class Strakhovatel extends JFrame{
+public class Strakhovatel{
 	
 	/**
 	 * С помощью окна "Страхователь" можно зарегистрировать нового пользователя.
@@ -35,16 +35,22 @@ public class Strakhovatel extends JFrame{
 	static boolean isRun1=false;
 
 	/** 
-	 * Метод открывает окно "Страхователь".
-	 */ 
+	  * Конструктор класса.
+	  */
 	protected Strakhovatel(){
-
+	}
+	
+	/** 
+	 * Открывает окно "Страхователь".
+	 */ 
+	protected void zapusk(){
+		JFrame s=new JFrame();	
 		//выполняем настройку формы "Страхователь"
-		 setTitle("Страхователь");		
-		 setSize(500,400);           
-		 setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   //указываем, что будет при нажатии крестика
-		 setLocationRelativeTo(null);                      //размещаем форму по середине экрана
-		 setLayout(new GridLayout());
+		s.setTitle("Страхователь");		
+		s.setSize(500,400);           
+		s.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   //указываем, что будет при нажатии крестика
+		s.setLocationRelativeTo(null);                      //размещаем форму по середине экрана
+		s.setLayout(new GridLayout());
 		
 		/*В следующем фрагменте кода создаются компоненты графического интерфейса пользователя, 
 		 * посредством которых он будет работать с данным окном, и панель, на которой они будут расположены
@@ -75,6 +81,7 @@ public class Strakhovatel extends JFrame{
 		zaregat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Registracya p=new Registracya();
+				p.zapusk();
 			}
 		});
 		
@@ -84,10 +91,11 @@ public class Strakhovatel extends JFrame{
 		lichKab.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LichnyKab l=new LichnyKab();
+				l.zapusk();
 			}
 		});
 	
-		add(panel);
-		setVisible(true); 
+		s.add(panel);
+		s.setVisible(true); 
 	}		
 }

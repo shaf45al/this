@@ -16,19 +16,28 @@ import javax.swing.JPanel;
 /** 
  * Класс, с помощью которого пользователь может выбрать вид пользователя.
  */
-public class OsnF extends JFrame {
+public class OsnF {
 	 static Formuly obj2 = new Formuly();
-	/** 
-	 * Метод открывает Основное окно приложения.
-	 */ 
+	
+	 /** 
+	  * Конструктор класса.
+	  */ 
 	public OsnF(){
 		
+	}
+		
+	/** 
+	 * Открывает Основное окно.
+	 */ 
+	public void zapusk(){
+		JFrame s=new JFrame();
+		
 		//выполняем настройку Основной формы
-		setTitle("Добро пожаловать!  Выберите пользователя: ");	
-		setSize(600,400);           
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //указываем, что будет при нажатии крестика
-		setLocationRelativeTo(null);                      //размещаем форму по середине экрана 
-		setLayout(new BorderLayout());
+		s.setTitle("Добро пожаловать!  Выберите пользователя: ");	
+		s.setSize(600,400);           
+		s.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   //указываем, что будет при нажатии крестика
+		s.setLocationRelativeTo(null);                      //размещаем форму по середине экрана 
+		s.setLayout(new BorderLayout());
 		
 		//создаем панель и кнопки для выбора вида пользователя
 		JPanel panel=new JPanel();
@@ -46,6 +55,7 @@ public class OsnF extends JFrame {
 		StrakhovatelB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Strakhovatel myStrakhovatel= new Strakhovatel();                               //отобразить форму
+				myStrakhovatel.zapusk();
 			}});
 		
 		/*Добавляем слушателя к кнопке "Страховщик".
@@ -54,7 +64,7 @@ public class OsnF extends JFrame {
 		StrakhovshikB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Strakhovshik strakh=new Strakhovshik();
-				strakh.setVisible(true);  										//отобразить форму
+				strakh.zapusk();  										//отобразить форму
 			}});
 		
 		panel.add(StrakhovatelB);
@@ -68,14 +78,8 @@ public class OsnF extends JFrame {
 		JLabel kopiright= new JLabel("copyright © 2018");
 		panel1.add(kopiright);								//добавляем метку на панель
 
-		add(panel,BorderLayout.CENTER);
-		add(panel1,BorderLayout.PAGE_END);
-	}
-	
-	//Метод, с которого начнется запуск приложения
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		OsnF myOsnF= new OsnF();
-		myOsnF.setVisible(true);
+		s.add(panel,BorderLayout.CENTER);
+		s.add(panel1,BorderLayout.PAGE_END);
+		s.setVisible(true);
 	}
 } 

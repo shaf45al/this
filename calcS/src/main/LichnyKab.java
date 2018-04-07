@@ -6,6 +6,9 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import main.StrVyplata;
 
@@ -23,7 +27,8 @@ import main.StrVyplata;
  *  <br> внести очередной взнос,
  *  <br>получить страховую выплату. 
  */
-public class LichnyKab extends JFrame{
+public class LichnyKab{
+	private FileReader input = null;
 	
 	/**
 	 * В личном кабинете пользователь может получить страховую выплату.
@@ -32,7 +37,6 @@ public class LichnyKab extends JFrame{
 	 * <br> Окно страховой выплаты открывается при isRun1 равным <b>false</b>.
 	 */
 	static boolean isRun1=false;         //убрать в класс регистрации
-	String loginProverka="";
 	String parolProverka="";
 	
 	/**
@@ -40,25 +44,46 @@ public class LichnyKab extends JFrame{
 	 */
 	static JLabel ostatokPoVznosam=new JLabel("");   
 
+	 /** 
+	  * Конструктор класса.
+	  */ 
+	protected LichnyKab(){
+	}
+	
 	/** 
 	 * Метод открывает Личный кабинет
 	 */ 
-	protected LichnyKab(){
-		//ввод логина
-		loginProverka=JOptionPane.showInputDialog(null, "Введите логин", null, JOptionPane.INFORMATION_MESSAGE);
+	protected void zapusk(){
+		System.out.println("Зашел в личный кабинет");
+
+		JFrame s=new JFrame();	
 		//ввод пароля
 		parolProverka=JOptionPane.showInputDialog(null, "Введите пароль", null, JOptionPane.INFORMATION_MESSAGE);
-	
+		
+		JTextField textField=new JTextField(10);
+		textField.setColumns(10);
+		
+		try {
+			input = new FileReader("p.txt");
+			textField.read(input, "p.txt");
+			input.close();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		//если введенные логин и пароль верные, то выполняется настройка формы "Личный кабинет"
-		if(Registracya.parol.equals(parolProverka) & Registracya.login.equals(loginProverka)){	
+		if(textField.getText().equals(parolProverka)){	// & new Registracya().getlogin().equals(loginProverka
 				System.out.println("Вы правы");	
 				
 				 
-				 setSize(600,400);           
-				 setTitle("Личный кабинет");
-				 setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   //указываем, что будет при нажатии крестика
-				 setLocationRelativeTo(null);                      //размещаем форму по середине экрана 
-				 setLayout(new GridLayout(2,20,1,20));
+				 s.setSize(600,400);           
+				 s.setTitle("Личный кабинет");
+				 s.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);   //указываем, что будет при нажатии крестика
+				 s.setLocationRelativeTo(null);                      //размещаем форму по середине экрана 
+				 s.setLayout(new GridLayout(2,20,1,20));
 		
 				/*В следующем фрагменте кода создаются компоненты графического интерфейса пользователя, 
 				 * посредством которых он будет работать с приложением, и панель, на которой они будут расположены
@@ -108,7 +133,7 @@ public class LichnyKab extends JFrame{
 					 */
 					vykhod.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							setVisible(false);								
+							s.setVisible(false);								
 						}
 					});
 					
@@ -129,13 +154,14 @@ public class LichnyKab extends JFrame{
 						public void actionPerformed(ActionEvent e) {
 							if(ostatokPoVznosam.getText().equals("0")) {
 								StrVyplata myVyplata=new StrVyplata();
+								myVyplata.zapusk();
 							}else
 								System.out.println("остаток по страховой премии не 0");
 						}
 					});
 					
-					add(panel);
-					setVisible(true); 
+					s.add(panel);
+					s.setVisible(true); 
 		}
 	}
 	
